@@ -3,8 +3,10 @@ import {
   initializeFirestore, 
   persistentLocalCache, 
   persistentMultipleTabManager,
-  getFirestore 
+  getFirestore,
 } from "firebase/firestore";
+
+import { getAuth } from "firebase/auth";
 
 // 1. CONFIGURAÇÃO DO PDV (PROJETO PRINCIPAL)
 
@@ -20,6 +22,9 @@ const pdvConfig = {
 
 // Inicializa o app principal do PDV (evitando reinicialização em recarregamentos/HMR)
 const pdvApp = !getApps().length ? initializeApp(pdvConfig) : getApp();
+
+// Inicializa o Auth do PDV
+export const auth = getAuth(pdvApp);
 
 // Inicializa o Firestore do PDV com suporte OFFLINE e suporte a múltiplas abas
 export const db = initializeFirestore(pdvApp, {
